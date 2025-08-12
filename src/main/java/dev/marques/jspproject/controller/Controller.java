@@ -1,5 +1,6 @@
 package dev.marques.jspproject.controller;
 
+import dev.marques.jspproject.model.JavaBeans;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    JavaBeans contato = new JavaBeans();
     DAO dao = new DAO();
 
     public Controller() {
@@ -31,13 +33,16 @@ public class Controller extends HttpServlet {
         }
     }
 
-    protected void novoContato(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getParameter("nome"));
-        System.out.println(request.getParameter("fone"));
-        System.out.println(request.getParameter("email"));
+    protected void novoContato(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        contato.setNome(request.getParameter("nome"));
+        contato.setFone(request.getParameter("fone"));
+        contato.setEmail(request.getParameter("email"));
+        dao.inserirContato(contato);
+        response.sendRedirect("main");
     }
 
     protected void contatos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect("agenda.jsp");
+        dao.getContatos();
     }
 }
