@@ -9,7 +9,7 @@ import dev.marques.jspproject.model.DAO;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/Controller", "/main"})
+@WebServlet(urlPatterns = {"/Controller", "/main", "/insert"})
 public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +24,17 @@ public class Controller extends HttpServlet {
         String action = request.getServletPath();
         if (action.equals("/main")) {
             contatos(request, response);
+        } else if (action.equals("/insert")) {
+            novoContato(request, response);
+        }else{
+            response.sendRedirect("index.html");
         }
+    }
+
+    protected void novoContato(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request.getParameter("nome"));
+        System.out.println(request.getParameter("fone"));
+        System.out.println(request.getParameter("email"));
     }
 
     protected void contatos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
