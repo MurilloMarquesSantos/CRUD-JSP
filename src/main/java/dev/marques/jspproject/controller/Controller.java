@@ -1,4 +1,4 @@
-package dev.marques.jspproject;
+package dev.marques.jspproject.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
