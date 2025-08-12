@@ -2,7 +2,6 @@ package dev.marques.jspproject.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLOutput;
 
 public class DAO {
 
@@ -10,9 +9,9 @@ public class DAO {
 
     private String driver = "com.mysql.cj.jdbc.Driver";
 
-    private String url = "jdbc:mysql://localhost:3306/dbagenda?useTimezone=true&ServerTimezone=UTC";
+    private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&ServerTimezone=UTC";
 
-    private String user = "UserJava";
+    private String user = "root";
 
     private String password = System.getenv("DB_PASSWORD");
 
