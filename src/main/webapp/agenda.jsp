@@ -8,6 +8,6 @@
 <body>
 <h1>Agenda de contatos</h1>
 
-<a href="/"class="Botao1">Novo contato</a>
+<a href="novo.html"class="Botao1">Novo contato</a>
 </body>
 </html>
