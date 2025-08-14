@@ -1,6 +1,9 @@
 package dev.marques.jspproject.model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,20 +51,23 @@ public class DAO {
 
     public List<JavaBeans> getContatos() {
         List<JavaBeans> contatos = new ArrayList<>();
+        String sql = "select * from contatos order by nome";
+
         try {
             Connection con = conectar();
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery("select * from contatos");
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 JavaBeans contato = new JavaBeans(rs.getString("idcon"),
                         rs.getString("nome"),
                         rs.getString("fone"),
                         rs.getString("email"));
                 contatos.add(contato);
-                con.close();
             }
+            con.close();
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
         return contatos;
     }

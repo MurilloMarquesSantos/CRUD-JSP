@@ -1,14 +1,16 @@
 package dev.marques.jspproject.controller;
 
+import dev.marques.jspproject.model.DAO;
 import dev.marques.jspproject.model.JavaBeans;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dev.marques.jspproject.model.DAO;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/Controller", "/main", "/insert"})
 public class Controller extends HttpServlet {
@@ -28,7 +30,7 @@ public class Controller extends HttpServlet {
             contatos(request, response);
         } else if (action.equals("/insert")) {
             novoContato(request, response);
-        }else{
+        } else {
             response.sendRedirect("index.html");
         }
     }
@@ -42,7 +44,9 @@ public class Controller extends HttpServlet {
     }
 
     protected void contatos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("agenda.jsp");
-        dao.getContatos();
+        List<JavaBeans> list = dao.getContatos();
+        request.setAttribute("contatos", list);
+        RequestDispatcher rd = request.getRequestDispatcher("agenda.jsp");
+        rd.forward(request, response);
     }
 }
