@@ -46,7 +46,6 @@ public class DAO {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public List<JavaBeans> getContatos() {
@@ -70,5 +69,40 @@ public class DAO {
             return null;
         }
         return contatos;
+    }
+
+    public void getContatosById(JavaBeans contato) {
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement("select * from contatos where idcon = ?");
+            pst.setString(1, contato.getIdcon());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                contato.setIdcon(rs.getString("idcon"));
+                contato.setNome(rs.getString("nome"));
+                contato.setFone(rs.getString("fone"));
+                contato.setEmail(rs.getString("email"));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void atualizarContato(JavaBeans contatos) {
+        String create = "update contatos set nome = ?, fone = ?, email = ? where idcon = ?";
+        try {
+            Connection con = conectar();
+            PreparedStatement stmt = con.prepareStatement(create);
+            stmt.setString(1, contatos.getNome());
+            stmt.setString(2, contatos.getFone());
+            stmt.setString(3, contatos.getEmail());
+            stmt.setString(4, contatos.getIdcon());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
