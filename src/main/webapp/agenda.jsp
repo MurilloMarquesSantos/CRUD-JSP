@@ -15,21 +15,27 @@
 <h1>Agenda de contatos</h1>
 <table id="tabela">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Fone</th>
-            <th>Email</th>
-        </tr>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Fone</th>
+        <th>Email</th>
+        <th>Opções</th>
+    </tr>
     </thead>
     <tbody>
     <%
-        for(JavaBeans j : list){%>
+        for (JavaBeans j : list) {%>
     <tr>
-        <td><%= j.getIdcon() %></td>
-        <td><%= j.getNome() %></td>
-        <td><%= j.getFone() %></td>
-        <td><%= j.getEmail() %></td>
+        <td><%= j.getIdcon() %>
+        </td>
+        <td><%= j.getNome() %>
+        </td>
+        <td><%= j.getFone() %>
+        </td>
+        <td><%= j.getEmail() %>
+        </td>
+        <td><a href="select?idcon=<%= j.getIdcon()%>" class="Botao1">Editar</a></td>
     </tr>
     <%}%>
     </tbody>

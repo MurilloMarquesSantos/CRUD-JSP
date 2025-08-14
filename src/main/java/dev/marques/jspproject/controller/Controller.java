@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/Controller", "/main", "/insert"})
+@WebServlet(urlPatterns = {"/Controller", "/main", "/insert", "/select"})
 public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -30,9 +30,16 @@ public class Controller extends HttpServlet {
             contatos(request, response);
         } else if (action.equals("/insert")) {
             novoContato(request, response);
+        } else if (action.equals("/select")) {
+            listarContato(request, response);
         } else {
             response.sendRedirect("index.html");
         }
+    }
+
+    private void listarContato(HttpServletRequest request, HttpServletResponse response) {
+        String idcon = request.getParameter("idcon");
+        contato.setIdcon(idcon);
     }
 
     protected void novoContato(HttpServletRequest request, HttpServletResponse response) throws IOException {
