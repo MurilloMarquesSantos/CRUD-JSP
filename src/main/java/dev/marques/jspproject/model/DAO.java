@@ -1,9 +1,6 @@
 package dev.marques.jspproject.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +99,19 @@ public class DAO {
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteContato(String idcon) {
+        String delete = "delete from contatos where idcon = ?";
+        try {
+            Connection con = conectar();
+            PreparedStatement pst = con.prepareStatement(delete);
+            pst.setString(1, idcon);
+            pst.execute();
+            con.close();
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }

@@ -21,6 +21,7 @@
         <th>Fone</th>
         <th>Email</th>
         <th>Opções</th>
+        <th>Excluir</th>
     </tr>
     </thead>
     <tbody>
@@ -36,6 +37,8 @@
         <td><%= j.getEmail() %>
         </td>
         <td><a href="select?idcon=<%= j.getIdcon()%>" class="Botao1">Editar</a></td>
+
+        <td><a href="deleteForm?idcon=<%= j.getIdcon()%>" class="Botao2">Excluir</a></td>
     </tr>
     <%}%>
     </tbody>

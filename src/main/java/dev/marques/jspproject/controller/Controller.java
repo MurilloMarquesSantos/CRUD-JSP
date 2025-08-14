@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/Controller", "/main", "/insert", "/select", "/update"})
+@WebServlet(urlPatterns = {"/Controller", "/main", "/insert", "/select", "/update", "/delete", "/deleteForm"})
 public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -34,6 +34,10 @@ public class Controller extends HttpServlet {
             listarContato(request, response);
         } else if (action.equals("/update")) {
             atualizarContato(request, response);
+        } else if (action.equals("/delete")) {
+            deleteContato(request, response);
+        } else if (action.equals("/deleteForm")) {
+            deleteForm(request, response);
         } else {
             response.sendRedirect("index.html");
         }
@@ -74,6 +78,24 @@ public class Controller extends HttpServlet {
         contato.setEmail(request.getParameter("email"));
         dao.atualizarContato(contato);
         response.sendRedirect("main");
+    }
+
+    protected void deleteContato(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idcon = request.getParameter("idcon");
+        dao.deleteContato(idcon);
+        response.sendRedirect("main");
+    }
+
+    protected void deleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String idcon = request.getParameter("idcon");
+        dao.getContatosById(contato.setIdcon(idcon));
+        request.setAttribute("idcon", contato.getIdcon());
+        request.setAttribute("nome", contato.getNome());
+        request.setAttribute("email", contato.getEmail());
+        request.setAttribute("fone", contato.getFone());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("deleteform.jsp");
+        dispatcher.forward(request, response);
+
     }
 
 }
